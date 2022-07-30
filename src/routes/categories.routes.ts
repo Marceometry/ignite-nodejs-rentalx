@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { createCategoryController } from "@/modules/cars";
+import {
+  createCategoryController,
+  listCategoriesController,
+} from "@/modules/cars";
 
 export const categoriesRoutes = Router();
 
@@ -8,7 +11,5 @@ categoriesRoutes.post("/", (req, res) => {
 });
 
 categoriesRoutes.get("/", (req, res) => {
-  // const categoryList = categoriesRepository.list();
-
-  return res.status(200).send([]);
+  return listCategoriesController.handle(req, res);
 });
