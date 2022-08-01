@@ -24,8 +24,12 @@ export class ImportCategoriesUseCase {
         .on("data", async (line) => {
           const [name, description] = line;
           categories.push({ name, description });
+          throw new Error("erro inesperado");
         })
-        .on("end", () => resolve(categories))
+        .on("end", () => {
+          fs.promises.unlink(file.path);
+          resolve(categories);
+        })
         .on("error", (err) => reject(err));
     });
   }
